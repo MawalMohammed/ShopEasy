@@ -45,12 +45,10 @@ Start the web server by running:
 
 ```
 node server.js 
-
 ```
 or 
 ```
 npm start
-
 ```
 
 You should see this message:
