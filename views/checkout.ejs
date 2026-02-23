@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Checkout</h2>
+
+    <div class="row">
+        <!-- Shipping Form -->
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Shipping Information</h5>
+                    <form action="/checkout/place-order" method="POST">
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Shipping Address</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                        </div>
+                        <input type="hidden" name="discount" value="<%= discount %>">
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-md-5">
+            <div class="card order-summary">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Order Summary</h5>
+                    <% cart.forEach(item => { %>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span><%= item.name %> &times; <%= item.quantity %></span>
+                        <span>$<%= (item.price * item.quantity).toFixed(2) %></span>
+                    </div>
+                    <% }) %>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Subtotal:</span>
+                        <span>$<%= subtotal.toFixed(2) %></span>
+                    </div>
+                    <% if (discount > 0) { %>
+                    <div class="d-flex justify-content-between text-success mb-1">
+                        <span>Discount:</span>
+                        <span>-$<%= discount.toFixed(2) %></span>
+                    </div>
+                    <% } %>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold fs-5">
+                        <span>Total:</span>
+                        <span>$<%= total.toFixed(2) %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discount Code -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Discount Code</h5>
+                    <form action="/checkout/apply-discount" method="POST">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="discountCode"
+                                   placeholder="Enter code"
+                                   value="<%= typeof discountCode !== 'undefined' ? discountCode : '' %>">
+                            <button type="submit" class="btn btn-outline-primary">Apply</button>
+                        </div>
+                        <% if (typeof error !== 'undefined' && error) { %>
+                        <small class="text-danger mt-1 d-block"><%= error %></small>
+                        <% } %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

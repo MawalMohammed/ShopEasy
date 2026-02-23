@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+    <h2>Search Results for "<%- query %>"</h2>
+    <p class="search-info"><%= results.length %> product(s) found</p>
+
+    <% if (results.length === 0) { %>
+        <div class="alert alert-warning">
+            No products found matching your search. Please try a different term.
+        </div>
+        <a href="/" class="btn btn-primary">Back to All Products</a>
+    <% } else { %>
+        <% const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c']; %>
+        <div class="row">
+            <% results.forEach(product => { %>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="product-img-placeholder" style="background-color: <%= colors[(product.id - 1) % colors.length] %>">
+                        <span><%= product.name.charAt(0) %></span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= product.name %></h5>
+                        <p class="card-text text-muted"><%= product.category %></p>
+                        <h5 class="text-primary">$<%= product.price.toFixed(2) %></h5>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 pb-3">
+                        <a href="/product/<%= product.id %>" class="btn btn-outline-primary me-2">View Details</a>
+                        <form action="/cart/add" method="POST" class="d-inline">
+                            <input type="hidden" name="productId" value="<%= product.id %>">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

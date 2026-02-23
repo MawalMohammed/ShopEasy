@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2 class="order-success">Order Confirmed!</h2>
+        <p class="lead">Thank you for your purchase, <strong><%= order.customerName %></strong>!</p>
+        <p class="text-muted">Order #<%= order.id %></p>
+    </div>
+
+    <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Order Details</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th class="text-end">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% order.items.forEach(item => { %>
+                    <tr>
+                        <td><%= item.name %></td>
+                        <td><%= item.quantity %></td>
+                        <td class="text-end">$<%= (item.price * item.quantity).toFixed(2) %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="text-end">Subtotal:</td>
+                        <td class="text-end">$<%= order.subtotal.toFixed(2) %></td>
+                    </tr>
+                    <% if (order.discount > 0) { %>
+                    <tr class="text-success">
+                        <td colspan="2" class="text-end">Discount:</td>
+                        <td class="text-end">-$<%= order.discount.toFixed(2) %></td>
+                    </tr>
+                    <% } %>
+                    <tr class="fw-bold">
+                        <td colspan="2" class="text-end">Total:</td>
+                        <td class="text-end">$<%= order.total.toFixed(2) %></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <hr>
+            <p><strong>Email:</strong> <%= order.email %></p>
+            <p><strong>Phone:</strong> <%= order.phone %></p>
+            <p><strong>Shipping Address:</strong> <%= order.address %></p>
+
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-primary">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
