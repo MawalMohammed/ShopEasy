@@ -17,9 +17,9 @@ Clone this repository or extract the provided ZIP file to a location on your com
 
 Open Command Prompt (cmd) or PowerShell and navigate to the ShopEasy folder:
 
-```
+
 cd C:\Users\YourUsername\Desktop\ShopEasy
-```
+
 
 > Replace the path above with the actual location of the folder.
 
@@ -33,9 +33,9 @@ npm install
 
 Wait for the process to complete. You should see output similar to:
 
-```
+
 added 56 packages in 5s
-```
+
 
 > **Note:** A `node_modules` folder will be created automatically. Do not delete or modify this folder.
 
@@ -53,9 +53,9 @@ npm start
 
 You should see this message:
 
-```
+
 ShopEasy is running at http://localhost:3000
-```
+
 
 > **Important:** Keep this terminal window open while using the application. Closing it will shut down the server.
 
@@ -63,8 +63,8 @@ ShopEasy is running at http://localhost:3000
 
 Open Google Chrome and navigate to:
 
-```
+
 http://localhost:3000
-```
+
 
 You should see the ShopEasy home page displaying six products in a grid layout.
